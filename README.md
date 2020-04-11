@@ -45,12 +45,13 @@ Available environment variables
   
 
 ```bash
-$ docker run 
+$ docker run \
+	-p 3567:3567 \
 	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
 	-e COOKIE_DOMAIN=example.com \
 	-e REFRESH_API_PATH=/example/refresh \
 	-e LICENSE_KEY_ID=yourLicenseKeyID \
-	-d supertokens-mongodb-pro dev
+	-d supertokens/supertokens-mongodb dev
 ```
 
 #### Using custom config file
@@ -64,9 +65,10 @@ $ docker run
 
 ```bash
 $ docker run \
+	-p 3567:3567 \
 	-v /path/to/config.yaml:/usr/lib/supertokens/config.yaml \
 	-e LICENSE_KEY_ID=yourLicenseKeyID \
-	-d supertokens-mongodb-pro dev
+	-d supertokens/supertokens-mongodb dev
 ```
 
 ## License Key
@@ -80,21 +82,23 @@ Please check this [link](https://supertokens.io/docs/pro/about-license-keys) to 
 #### Using environment variables
 ```bash
 $ docker run \
+	-p 3567:3567 \
 	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
 	-e COOKIE_DOMAIN=example.com \
 	-e REFRESH_API_PATH=/example/path \
 	-e LICENSE_KEY_ID=<your-license-key-id> \
-	-d supertokens-mongodb-pro production
+	-d supertokens/supertokens-mongodb production
 ```
 
 #### Using your `licenseKey` file
 ```bash
 $ docker run \
+	-p 3567:3567 \
 	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
 	-e COOKIE_DOMAIN=example.com \
 	-e REFRESH_API_PATH=/example/path \
 	-v /path/to/licenseKey:/usr/lib/supertokens/licenseKey \	
-	-d supertokens-mongodb-pro dev
+	-d supertokens/supertokens-mongodb dev
 ```
 
 ## Logging
@@ -105,6 +109,7 @@ $ docker run \
 
 ```bash
 $ docker run \
+	-p 3567:3567 \
 	-v /path/to/logsFolder:/home/logsFolder \
 	-e INFO_LOG_PATH=/home/logsFolder/info.log \
 	-e ERROR_LOG_PATH=/home/logsFolder/error.log \
@@ -112,7 +117,7 @@ $ docker run \
 	-e COOKIE_DOMAIN=example.com \
 	-e REFRESH_API_PATH=/example/path \
 	-e LICENSE_KEY_ID=yourLicenseKeyId \
-	-d supertokens-mongodb-pro production
+	-d supertokens/supertokens-mongodb production
 ```
 
 ## Database setup
