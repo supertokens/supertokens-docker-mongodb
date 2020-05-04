@@ -33,6 +33,8 @@ Available environment variables
 	- INFO\_LOG\_PATH
 	- ERROR\_LOG\_PATH
 	- COOKIE\_SECURE
+	- SESSION\_EXPIRED\_STATUS\_CODE
+	- COOKIE\_SAME\_SITE
     - MAX\_SERVER\_POOL\_SIZE
 - **MongoDB:** [[click for more info](https://supertokens.io/docs/pro/configuration/database/mongodb)]	
 	- MONGODB\_CONNECTION\_URI \[**required**\]
