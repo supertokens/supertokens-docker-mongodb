@@ -64,46 +64,56 @@ NETWORK_OPTIONS="-p 3567:3567 -e MONGODB_CONNECTION_URI=mongodb://root:root@$(if
 printf "\nmongodb_connection_uri: \"mongodb://root:root@$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1):27017\"\n" >> $PWD/config.yaml
 
 #---------------------------------------------------
-# start with mongodb connection_uri, cookie domain and refresh API path
-docker run $NETWORK_OPTIONS -e COOKIE_DOMAIN=supertokens.io -e REFRESH_API_PATH=/auth/refresh --rm -d --name supertokens supertokens-mongodb:circleci
+# start with no network options
+docker run --rm -d -e LICENSE_KEY_ID=$LICENSE_KEY_ID --name supertokens supertokens-mongodb:circleci --no-in-mem-db 
 
 sleep 10s
 
-test_equal `no_of_running_containers` 1 "start with mongodb connection_uri, cookie domain and refresh API path"
+test_equal `no_of_running_containers` 1 "start with no params"
 
 #---------------------------------------------------
-# start with mongodb connection_uri, license key id and refresh API path
-docker run $NETWORK_OPTIONS -e REFRESH_API_PATH=/auth/refresh -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci
+# start with no network options, but in mem db
+docker run -p 3567:3567 --rm -d -e LICENSE_KEY_ID=$LICENSE_KEY_ID --name supertokens supertokens-mongodb:circleci
 
 sleep 10s
 
-test_equal `no_of_running_containers` 1 "start with mongodb connection_uri, license key id and refresh API path"
-
-#---------------------------------------------------
-# start with mongodb connection_uri, cookie domain and license key id
-docker run $NETWORK_OPTIONS -e COOKIE_DOMAIN=supertokens.io -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci
-
-sleep 10s
-
-test_equal `no_of_running_containers` 1 "start with mongodb connection_uri, cookie domain and license key id"
-
-#---------------------------------------------------
-# start with mongodb connection_uri, cookie domain refresh API path and license key id
-docker run $NETWORK_OPTIONS -e COOKIE_DOMAIN=supertokens.io -e REFRESH_API_PATH=/auth/refresh -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci
+test_equal `no_of_running_containers` 1 "start with no params"
 
 sleep 17s
 
-test_equal `no_of_running_containers` 2 "start with mongodb connection_uri, cookie domain refresh API path and license key id"
+test_equal `no_of_running_containers` 2 "start with no network options, but in mem db"
 
-test_hello "start with mongodb connection_uri, cookie domain refresh API path and license key id"
+test_hello "start with no network options, but in mem db"
 
-test_session_post "start with mongodb connection_uri, cookie domain refresh API path and license key id"
+test_session_post "start with no network options, but in mem db"
+
+docker rm supertokens -f
+
+#---------------------------------------------------
+# start with no params
+docker run $NETWORK_OPTIONS --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db 
+
+sleep 10s
+
+test_equal `no_of_running_containers` 1 "start with no params"
+
+#---------------------------------------------------
+# start with mongodb connection_uri, and license key id
+docker run $NETWORK_OPTIONS -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
+
+sleep 17s
+
+test_equal `no_of_running_containers` 2 "start with mongodb connection_uri and license key id"
+
+test_hello "start with mongodb connection_uri and license key id"
+
+test_session_post "start with mongodb connection_uri and license key id"
 
 docker rm supertokens -f
 
 #---------------------------------------------------
 # start by sharing config.yaml without license key id
-docker run $NETWORK_OPTIONS -v $PWD/config.yaml:/usr/lib/supertokens/config.yaml --rm -d --name supertokens supertokens-mongodb:circleci
+docker run $NETWORK_OPTIONS -v $PWD/config.yaml:/usr/lib/supertokens/config.yaml --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
 
 sleep 10s
 
@@ -111,7 +121,7 @@ test_equal `no_of_running_containers` 1 "start by sharing config.yaml without li
 
 #---------------------------------------------------
 # start by sharing config.yaml with license key id
-docker run $NETWORK_OPTIONS -v $PWD/config.yaml:/usr/lib/supertokens/config.yaml -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci
+docker run $NETWORK_OPTIONS -v $PWD/config.yaml:/usr/lib/supertokens/config.yaml -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
 
 sleep 17s
 
@@ -125,7 +135,7 @@ docker rm supertokens -f
 
 #---------------------------------------------------
 # start by sharing config.yaml and license key file
-docker run $NETWORK_OPTIONS -v $PWD/config.yaml:/usr/lib/supertokens/config.yaml -v $LICENSE_FILE_PATH:/usr/lib/supertokens/licenseKey --rm -d --name supertokens supertokens-mongodb:circleci
+docker run $NETWORK_OPTIONS -v $PWD/config.yaml:/usr/lib/supertokens/config.yaml -v $LICENSE_FILE_PATH:/usr/lib/supertokens/licenseKey --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
 
 sleep 17s
 
@@ -141,7 +151,7 @@ rm -rf $LICENSE_FILE_PATH
 
 # ---------------------------------------------------
 # test info path
-docker run $NETWORK_OPTIONS -v $PWD:/home/supertokens -e COOKIE_DOMAIN=supertokens.io -e INFO_LOG_PATH=/home/supertokens/info.log -e ERROR_LOG_PATH=/home/supertokens/error.log -e REFRESH_API_PATH=/auth/refresh -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci
+docker run $NETWORK_OPTIONS -v $PWD:/home/supertokens -e INFO_LOG_PATH=/home/supertokens/info.log -e ERROR_LOG_PATH=/home/supertokens/error.log -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
 
 sleep 17s
 

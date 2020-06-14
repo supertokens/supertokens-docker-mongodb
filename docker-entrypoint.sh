@@ -46,26 +46,23 @@ chown -R supertokens:supertokens /usr/lib/supertokens/
 
 if [ "$CONFIG_HASH" = "$CONFIG_MD5SUM" ]
 then
-    # verify mongodb connection uri is passed [mandatory]
+    # verify mongodb connection uri is passed
     if [ -z $MONGODB_CONNECTION_URI ]
     then
-        error_log "MISSING PARAMETER" "MONGODB_CONNECTION_URI env not set"
+        echo "mongodb_connection_uri: \"$MONGODB_CONNECTION_URI\"" >> $CONFIG_FILE
     fi
-    echo "mongodb_connection_uri: \"$MONGODB_CONNECTION_URI\"" >> $CONFIG_FILE
 
-    # verify cookie domain is passed [mandatory]
+    # verify cookie domain is passed
     if [ -z $COOKIE_DOMAIN ]
     then
-        error_log "MISSING PARAMETER" "COOKIE_DOMAIN env not set"
+        echo "cookie_domain: \"$COOKIE_DOMAIN\"" >> $CONFIG_FILE
     fi
-    echo "cookie_domain: \"$COOKIE_DOMAIN\"" >> $CONFIG_FILE
 
-    # verify refresh api path is passed [mandatory]
+    # verify refresh api path is passed
     if [ -z $REFRESH_API_PATH ]
     then
-        error_log "MISSING PARAMETER" "REFRESH_API_PATH env not set"
+        echo "refresh_api_path: \"$REFRESH_API_PATH\"" >> $CONFIG_FILE
     fi
-    echo "refresh_api_path: \"$REFRESH_API_PATH\"" >> $CONFIG_FILE
 
     # check if supertokens host is passed
     if [ ! -z $SUPERTOKENS_HOST ]
@@ -205,7 +202,7 @@ fi
 # check if no options has been passed to docker run
 if [[ "$@" == "supertokens start" ]]
 then
-    set -- "$@" dev --foreground
+    set -- "$@" --foreground
 fi
 
 # If container is started as root user, restart as dedicated supertokens user

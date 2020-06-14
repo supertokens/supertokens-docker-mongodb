@@ -1,14 +1,8 @@
 ## About this image
 
 The following parameters are required to start the container:
-- `dev` / `production` mode
 - `config.yaml` environment variables (Configuration)
 - License Key file or License Key ID
-
-
-## `dev` / `production` mode
-- The default value of this is `dev`
-- This is the same as what the CLI expects. You can learn more about the differences [here](https://supertokens.io/docs/pro/cli/start)
 
 
 ## Configuration
@@ -19,8 +13,8 @@ If you do both, only the shared `config.yaml` file will be considered.
 #### Using environment variable
 Available environment variables
 - **Core** [[click for more info](https://supertokens.io/docs/pro/configuration/core)]
-	- COOKIE\_DOMAIN \[**required**\]
-	- REFRESH\_API\_PATH \[**required**\]
+	- COOKIE\_DOMAIN
+	- REFRESH\_API\_PATH
 	- SUPERTOKENS\_HOST
 	- SUPERTOKENS\_PORT
 	- ACCESS\_TOKEN\_VALIDITY
@@ -37,7 +31,7 @@ Available environment variables
 	- COOKIE\_SAME\_SITE
     - MAX\_SERVER\_POOL\_SIZE
 - **MongoDB:** [[click for more info](https://supertokens.io/docs/pro/configuration/database/mongodb)]	
-	- MONGODB\_CONNECTION\_URI \[**required**\]
+	- MONGODB\_CONNECTION\_URI
 	- MONGODB\_DATABASE\_NAME
 	- MONGODB\_KEY\_VALUE\_COLLECTION\_NAME
 	- MONGODB\_SESSION\_INFO\_COLLECTION\_NAME
@@ -50,10 +44,8 @@ Available environment variables
 $ docker run \
 	-p 3567:3567 \
 	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
-	-e COOKIE_DOMAIN=example.com \
-	-e REFRESH_API_PATH=/example/refresh \
 	-e LICENSE_KEY_ID=yourLicenseKeyID \
-	-d supertokens/supertokens-mongodb dev
+	-d supertokens/supertokens-mongodb
 ```
 
 #### Using custom config file
@@ -70,7 +62,7 @@ $ docker run \
 	-p 3567:3567 \
 	-v /path/to/config.yaml:/usr/lib/supertokens/config.yaml \
 	-e LICENSE_KEY_ID=yourLicenseKeyID \
-	-d supertokens/supertokens-mongodb dev
+	-d supertokens/supertokens-mongodb
 ```
 
 ## License Key
@@ -86,10 +78,8 @@ Please check this [link](https://supertokens.io/docs/pro/about-license-keys) to 
 $ docker run \
 	-p 3567:3567 \
 	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
-	-e COOKIE_DOMAIN=example.com \
-	-e REFRESH_API_PATH=/example/path \
 	-e LICENSE_KEY_ID=<your-license-key-id> \
-	-d supertokens/supertokens-mongodb production
+	-d supertokens/supertokens-mongodb
 ```
 
 #### Using your `licenseKey` file
@@ -97,10 +87,8 @@ $ docker run \
 $ docker run \
 	-p 3567:3567 \
 	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
-	-e COOKIE_DOMAIN=example.com \
-	-e REFRESH_API_PATH=/example/path \
 	-v /path/to/licenseKey:/usr/lib/supertokens/licenseKey \	
-	-d supertokens/supertokens-mongodb dev
+	-d supertokens/supertokens-mongodb
 ```
 
 ## Logging
@@ -116,14 +104,13 @@ $ docker run \
 	-e INFO_LOG_PATH=/home/logsFolder/info.log \
 	-e ERROR_LOG_PATH=/home/logsFolder/error.log \
 	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
-	-e COOKIE_DOMAIN=example.com \
-	-e REFRESH_API_PATH=/example/path \
 	-e LICENSE_KEY_ID=yourLicenseKeyId \
-	-d supertokens/supertokens-mongodb production
+	-d supertokens/supertokens-mongodb
 ```
 
 ## Database setup
 - You do not need to ensure that the MongoDB database has started before this container is started. During bootup, SuperTokens will wait for ~1 hour for a MongoDB instance to be available.
+- If ```MONGODB_CONNECTION_URI``` is not provided, then SuperTokens will use an in memory database.
 
 
 ## CLI reference
