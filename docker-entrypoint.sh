@@ -47,19 +47,19 @@ chown -R supertokens:supertokens /usr/lib/supertokens/
 if [ "$CONFIG_HASH" = "$CONFIG_MD5SUM" ]
 then
     # verify mongodb connection uri is passed
-    if [ -z $MONGODB_CONNECTION_URI ]
+    if [ ! -z $MONGODB_CONNECTION_URI ]
     then
         echo "mongodb_connection_uri: \"$MONGODB_CONNECTION_URI\"" >> $CONFIG_FILE
     fi
 
     # verify cookie domain is passed
-    if [ -z $COOKIE_DOMAIN ]
+    if [ ! -z $COOKIE_DOMAIN ]
     then
         echo "cookie_domain: \"$COOKIE_DOMAIN\"" >> $CONFIG_FILE
     fi
 
     # verify refresh api path is passed
-    if [ -z $REFRESH_API_PATH ]
+    if [ ! -z $REFRESH_API_PATH ]
     then
         echo "refresh_api_path: \"$REFRESH_API_PATH\"" >> $CONFIG_FILE
     fi
