@@ -65,7 +65,7 @@ printf "\nmongodb_connection_uri: \"mongodb://root:root@$(ifconfig | grep -E "([
 
 #---------------------------------------------------
 # start with no network options
-docker run --rm -e LICENSE_KEY_ID=$LICENSE_KEY_ID --name supertokens supertokens-mongodb:circleci --no-in-mem-db 
+docker run --rm -d -e LICENSE_KEY_ID=$LICENSE_KEY_ID --name supertokens supertokens-mongodb:circleci --no-in-mem-db 
 
 sleep 10s
 
