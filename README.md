@@ -1,10 +1,3 @@
-## About this image
-
-The following parameters are required to start the container:
-- `config.yaml` environment variables (Configuration)
-- License Key file or License Key ID
-
-
 ## Configuration
 You can use your own `config.yaml` file as a shared volume or pass the key-values as environment variables. 
 
@@ -12,7 +5,7 @@ If you do both, only the shared `config.yaml` file will be considered.
   
 #### Using environment variable
 Available environment variables
-- **Core** [[click for more info](https://supertokens.io/docs/pro/configuration/core)]
+- **Core** [[click for more info](https://supertokens.io/docs/community/configuration/core)]
 	- COOKIE\_DOMAIN
 	- REFRESH\_API\_PATH
 	- SUPERTOKENS\_HOST
@@ -30,21 +23,18 @@ Available environment variables
 	- SESSION\_EXPIRED\_STATUS\_CODE
 	- COOKIE\_SAME\_SITE
     - MAX\_SERVER\_POOL\_SIZE
-- **MongoDB:** [[click for more info](https://supertokens.io/docs/pro/configuration/database/mongodb)]	
+- **MongoDB:** [[click for more info](https://supertokens.io/docs/community/configuration/database/mongodb)]	
 	- MONGODB\_CONNECTION\_URI
 	- MONGODB\_DATABASE\_NAME
 	- MONGODB\_KEY\_VALUE\_COLLECTION\_NAME
 	- MONGODB\_SESSION\_INFO\_COLLECTION\_NAME
 	- MONGODB\_PAST\_TOKENS\_COLLECTION\_NAME
-- **License Key**: [See below]
-	- LICENSE_KEY_ID
   
 
 ```bash
 $ docker run \
 	-p 3567:3567 \
 	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
-	-e LICENSE_KEY_ID=yourLicenseKeyID \
 	-d supertokens/supertokens-mongodb
 ```
 
@@ -61,33 +51,6 @@ $ docker run \
 $ docker run \
 	-p 3567:3567 \
 	-v /path/to/config.yaml:/usr/lib/supertokens/config.yaml \
-	-e LICENSE_KEY_ID=yourLicenseKeyID \
-	-d supertokens/supertokens-mongodb
-```
-
-## License Key
-You can get your license key from your [SuperTokens dashboard](https://supertokens.io/dashboard).
-
-
-You can either share your `licenseKey` file, or provide the ID as an environment variable. We recommend providing the file since that way you can run the container without giving it internet access.
-
-Please check this [link](https://supertokens.io/docs/pro/about-license-keys) to learn more about license keys.
-
-#### Using environment variables
-```bash
-$ docker run \
-	-p 3567:3567 \
-	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
-	-e LICENSE_KEY_ID=<your-license-key-id> \
-	-d supertokens/supertokens-mongodb
-```
-
-#### Using your `licenseKey` file
-```bash
-$ docker run \
-	-p 3567:3567 \
-	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
-	-v /path/to/licenseKey:/usr/lib/supertokens/licenseKey \	
 	-d supertokens/supertokens-mongodb
 ```
 
@@ -104,7 +67,6 @@ $ docker run \
 	-e INFO_LOG_PATH=/home/logsFolder/info.log \
 	-e ERROR_LOG_PATH=/home/logsFolder/error.log \
 	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
-	-e LICENSE_KEY_ID=yourLicenseKeyId \
 	-d supertokens/supertokens-mongodb
 ```
 
@@ -114,4 +76,4 @@ $ docker run \
 
 
 ## CLI reference
-Please refer to our [documentation](https://supertokens.io/docs/pro/cli/overview) for this.
+Please refer to our [documentation](https://supertokens.io/docs/community/cli/overview) for this.

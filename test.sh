@@ -48,10 +48,6 @@ test_session_post () {
     fi
 }
 
-LICENSE_FILE_PATH=$PWD/licenseKey
-curl -X GET "https://api.supertokens.io/development/license-key?password=$API_KEY&planType=FREE&onExpiry=NA&expired=False" -H "api-version: 0" -s > $LICENSE_FILE_PATH
-LICENSE_KEY_ID=$(cat $LICENSE_FILE_PATH | jq -r ".info.licenseKeyId")
-
 # start mongodb server
 docker run --rm -d -p 27017:27017 --name mongodb -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=root mongo
 
@@ -64,16 +60,16 @@ NETWORK_OPTIONS="-p 3567:3567 -e MONGODB_CONNECTION_URI=mongodb://root:root@$(if
 printf "\nmongodb_connection_uri: \"mongodb://root:root@$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1):27017\"\n" >> $PWD/config.yaml
 
 #---------------------------------------------------
-# start with no network options
-docker run --rm -d -e LICENSE_KEY_ID=$LICENSE_KEY_ID --name supertokens supertokens-mongodb:circleci --no-in-mem-db 
+# start with no options
+docker run --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db 
 
 sleep 10s
 
-test_equal `no_of_running_containers` 1 "start with no network options"
+test_equal `no_of_running_containers` 1 "start with no options"
 
 #---------------------------------------------------
 # start with no network options, but in mem db
-docker run -p 3567:3567 --rm -d -e LICENSE_KEY_ID=$LICENSE_KEY_ID --name supertokens supertokens-mongodb:circleci
+docker run -p 3567:3567 --rm -d --name supertokens supertokens-mongodb:circleci
 
 sleep 17s
 
@@ -94,60 +90,36 @@ sleep 10s
 test_equal `no_of_running_containers` 1 "start with no params"
 
 #---------------------------------------------------
-# start with mongodb connection_uri, and license key id
-docker run $NETWORK_OPTIONS -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
+# start with mongodb connection_uri
+docker run $NETWORK_OPTIONS --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
 
 sleep 17s
 
-test_equal `no_of_running_containers` 2 "start with mongodb connection_uri and license key id"
+test_equal `no_of_running_containers` 2 "start with mongodb connection_uri"
 
-test_hello "start with mongodb connection_uri and license key id"
+test_hello "start with mongodb connection_uri"
 
-test_session_post "start with mongodb connection_uri and license key id"
+test_session_post "start with mongodb connection_uri"
 
 docker rm supertokens -f
 
 #---------------------------------------------------
-# start by sharing config.yaml without license key id
+# start by sharing config.yaml
 docker run $NETWORK_OPTIONS -v $PWD/config.yaml:/usr/lib/supertokens/config.yaml --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
 
-sleep 10s
-
-test_equal `no_of_running_containers` 1 "start by sharing config.yaml without license key id"
-
-#---------------------------------------------------
-# start by sharing config.yaml with license key id
-docker run $NETWORK_OPTIONS -v $PWD/config.yaml:/usr/lib/supertokens/config.yaml -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
-
 sleep 17s
 
-test_equal `no_of_running_containers` 2 "start by sharing config.yaml with license key id"
+test_equal `no_of_running_containers` 2 "start by sharing config.yaml"
 
-test_hello "start by sharing config.yaml with license key id"
+test_hello "start by sharing config.yaml"
 
-test_session_post "start by sharing config.yaml with license key id"
-
-docker rm supertokens -f
-
-#---------------------------------------------------
-# start by sharing config.yaml and license key file
-docker run $NETWORK_OPTIONS -v $PWD/config.yaml:/usr/lib/supertokens/config.yaml -v $LICENSE_FILE_PATH:/usr/lib/supertokens/licenseKey --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
-
-sleep 17s
-
-test_equal `no_of_running_containers` 2 "start by sharing config.yaml and license key file"
-
-test_hello "start by sharing config.yaml and license key file"
-
-test_session_post "start by sharing config.yaml and license key file"
+test_session_post "start by sharing config.yaml"
 
 docker rm supertokens -f
-
-rm -rf $LICENSE_FILE_PATH
 
 # ---------------------------------------------------
 # test info path
-docker run $NETWORK_OPTIONS -v $PWD:/home/supertokens -e INFO_LOG_PATH=/home/supertokens/info.log -e ERROR_LOG_PATH=/home/supertokens/error.log -e LICENSE_KEY_ID=$LICENSE_KEY_ID --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
+docker run $NETWORK_OPTIONS -v $PWD:/home/supertokens -e INFO_LOG_PATH=/home/supertokens/info.log -e ERROR_LOG_PATH=/home/supertokens/error.log --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
 
 sleep 17s
 
