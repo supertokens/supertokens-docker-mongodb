@@ -85,9 +85,15 @@ docker rm supertokens -f
 # start with no params
 docker run $NETWORK_OPTIONS --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db 
 
-sleep 10s
+sleep 17s
 
-test_equal `no_of_running_containers` 1 "start with no params"
+test_equal `no_of_running_containers` 2 "start with no params"
+
+test_hello "start with no params"
+
+test_session_post "start with no params"
+
+docker rm supertokens -f
 
 #---------------------------------------------------
 # start with mongodb connection_uri
