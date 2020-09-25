@@ -40,6 +40,9 @@ chown -R supertokens:supertokens /usr/lib/supertokens/
 
 if [ "$CONFIG_HASH" = "$CONFIG_MD5SUM" ]
 then
+
+    echo "\n" >> $CONFIG_FILE
+
     # verify mongodb connection uri is passed
     if [ ! -z $MONGODB_CONNECTION_URI ]
     then
