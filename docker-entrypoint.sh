@@ -43,6 +43,12 @@ then
 
     echo "" >> $CONFIG_FILE
 
+    # verify api keys are passed
+    if [ ! -z $API_KEYS ]
+    then
+        echo "api_keys: $API_KEYS" >> $CONFIG_FILE
+    fi
+
     # verify mongodb connection uri is passed
     if [ ! -z $MONGODB_CONNECTION_URI ]
     then
@@ -189,11 +195,6 @@ then
         echo "mongodb_session_info_collection_name: \"$MONGODB_SESSION_INFO_COLLECTION_NAME\"" >> $CONFIG_FILE
     fi
 
-    # check if mongodb past tokens table name is passed
-    if [ ! -z $MONGODB_PAST_TOKENS_COLLECTION_NAME ]
-    then
-        echo "mongodb_past_tokens_collection_name: \"$MONGODB_PAST_TOKENS_COLLECTION_NAME\"" >> $CONFIG_FILE
-    fi
 fi
 
 # check if no options has been passed to docker run

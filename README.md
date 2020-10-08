@@ -13,6 +13,7 @@ If you do both, only the shared `config.yaml` file will be considered.
 #### Using environment variable
 Available environment variables
 - **Core** [[click for more info](https://supertokens.io/docs/community/configuration/core)]
+	- API\_KEYS
 	- COOKIE\_DOMAIN
 	- REFRESH\_API\_PATH
 	- SUPERTOKENS\_HOST
@@ -35,7 +36,6 @@ Available environment variables
 	- MONGODB\_DATABASE\_NAME
 	- MONGODB\_KEY\_VALUE\_COLLECTION\_NAME
 	- MONGODB\_SESSION\_INFO\_COLLECTION\_NAME
-	- MONGODB\_PAST\_TOKENS\_COLLECTION\_NAME
   
 
 ```bash
