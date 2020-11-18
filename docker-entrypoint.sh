@@ -42,6 +42,7 @@ if [ "$CONFIG_HASH" = "$CONFIG_MD5SUM" ]
 then
 
     echo "" >> $CONFIG_FILE
+    echo "host: 0.0.0.0" >> $CONFIG_FILE
 
     # verify api keys are passed
     if [ ! -z $API_KEYS ]
@@ -52,27 +53,7 @@ then
     # verify mongodb connection uri is passed
     if [ ! -z $MONGODB_CONNECTION_URI ]
     then
-        echo "mongodb_connection_uri: \"$MONGODB_CONNECTION_URI\"" >> $CONFIG_FILE
-    fi
-
-    # verify cookie domain is passed
-    if [ ! -z $COOKIE_DOMAIN ]
-    then
-        echo "cookie_domain: $COOKIE_DOMAIN" >> $CONFIG_FILE
-    fi
-
-    # verify refresh api path is passed
-    if [ ! -z $REFRESH_API_PATH ]
-    then
-        echo "refresh_api_path: \"$REFRESH_API_PATH\"" >> $CONFIG_FILE
-    fi
-
-    # check if supertokens host is passed
-    if [ ! -z $SUPERTOKENS_HOST ]
-    then
-        echo "host: \"$SUPERTOKENS_HOST\"" >> $CONFIG_FILE
-    else
-        echo "host: 0.0.0.0" >> $CONFIG_FILE
+        echo "mongodb_connection_uri: $MONGODB_CONNECTION_URI" >> $CONFIG_FILE
     fi
 
     # check if supertokens port is passed
@@ -91,12 +72,6 @@ then
     if [ ! -z $ACCESS_TOKEN_BLACKLISTING ]
     then
         echo "access_token_blacklisting: $ACCESS_TOKEN_BLACKLISTING" >> $CONFIG_FILE
-    fi
-
-    # check if access token path is passed
-    if [ ! -z $ACCESS_TOKEN_PATH ]
-    then
-        echo "access_token_path: \"$ACCESS_TOKEN_PATH\"" >> $CONFIG_FILE
     fi
 
     # check if access token signing key dynamic is passed
@@ -133,7 +108,7 @@ then
         # make sure supertokens user has write permission on the file
         chown supertokens:supertokens $INFO_LOG_PATH
         chmod +w $INFO_LOG_PATH
-        echo "info_log_path: \"$INFO_LOG_PATH\"" >> $CONFIG_FILE
+        echo "info_log_path: $INFO_LOG_PATH" >> $CONFIG_FILE
     else
         echo "info_log_path: null" >> $CONFIG_FILE
     fi
@@ -148,15 +123,15 @@ then
         # make sure supertokens user has write permission on the file
         chown supertokens:supertokens $ERROR_LOG_PATH
         chmod +w $ERROR_LOG_PATH
-        echo "error_log_path: \"$ERROR_LOG_PATH\"" >> $CONFIG_FILE
+        echo "error_log_path: $ERROR_LOG_PATH" >> $CONFIG_FILE
     else
         echo "error_log_path: null" >> $CONFIG_FILE
     fi
 
-    # check if cookie secure is passed
-    if [ ! -z $COOKIE_SECURE ]
+    # check if telemetry config is passed
+    if [ ! -z $DISABLE_TELEMETRY ]
     then
-        echo "cookie_secure: $COOKIE_SECURE" >> $CONFIG_FILE
+        echo "disable_telemetry: $DISABLE_TELEMETRY" >> $CONFIG_FILE
     fi
 
     # check if session expired status code is passed
@@ -180,19 +155,19 @@ then
     # check if mongodb database name is passed
     if [ ! -z $MONGODB_DATABASE_NAME ]
     then
-        echo "mongodb_database_name: \"$MONGODB_DATABASE_NAME\"" >> $CONFIG_FILE
+        echo "mongodb_database_name: $MONGODB_DATABASE_NAME" >> $CONFIG_FILE
     fi
 
     # check if mongodb key value table name is passed
     if [ ! -z $MONGODB_KEY_VALUE_COLLECTION_NAME ]
     then
-        echo "mongodb_key_value_collection_name: \"$MONGODB_KEY_VALUE_COLLECTION_NAME\"" >> $CONFIG_FILE
+        echo "mongodb_key_value_collection_name: $MONGODB_KEY_VALUE_COLLECTION_NAME" >> $CONFIG_FILE
     fi
 
     # check if mongodb session info table name is passed
     if [ ! -z $MONGODB_SESSION_INFO_COLLECTION_NAME ]
     then
-        echo "mongodb_session_info_collection_name: \"$MONGODB_SESSION_INFO_COLLECTION_NAME\"" >> $CONFIG_FILE
+        echo "mongodb_session_info_collection_name: $MONGODB_SESSION_INFO_COLLECTION_NAME" >> $CONFIG_FILE
     fi
 
 fi

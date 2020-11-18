@@ -12,26 +12,21 @@ If you do both, only the shared `config.yaml` file will be considered.
   
 #### Using environment variable
 Available environment variables
-- **Core** [[click for more info](https://supertokens.io/docs/community/configuration/core)]
+- **Core**
 	- API\_KEYS
-	- COOKIE\_DOMAIN
-	- REFRESH\_API\_PATH
 	- SUPERTOKENS\_HOST
 	- SUPERTOKENS\_PORT
 	- ACCESS\_TOKEN\_VALIDITY
 	- ACCESS\_TOKEN\_BLACKLISTING
-	- ACCESS\_TOKEN\_PATH
 	- ACCESS\_TOKEN\_SIGNING\_KEY\_DYNAMIC
 	- ACCESS\_TOKEN\_SIGNING\_KEY\_UPDATE\_INTERVAL
 	- ENABLE\_ANTI\_CSRF
 	- REFRESH\_TOKEN\_VALIDITY
 	- INFO\_LOG\_PATH
 	- ERROR\_LOG\_PATH
-	- COOKIE\_SECURE
-	- SESSION\_EXPIRED\_STATUS\_CODE
-	- COOKIE\_SAME\_SITE
     - MAX\_SERVER\_POOL\_SIZE
-- **MongoDB:** [[click for more info](https://supertokens.io/docs/community/configuration/database/mongodb)]	
+	- DISABLE\_TELEMETRY
+- **MongoDB:**	
 	- MONGODB\_CONNECTION\_URI
 	- MONGODB\_DATABASE\_NAME
 	- MONGODB\_KEY\_VALUE\_COLLECTION\_NAME
@@ -41,7 +36,7 @@ Available environment variables
 ```bash
 $ docker run \
 	-p 3567:3567 \
-	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
+	-e MONGODB_CONNECTION_URI=mongodb://root:root@192.168.1.2:27017 \
 	-d supertokens/supertokens-mongodb
 ```
 
@@ -80,7 +75,3 @@ $ docker run \
 ## Database setup
 - You do not need to ensure that the MongoDB database has started before this container is started. During bootup, SuperTokens will wait for ~1 hour for a MongoDB instance to be available.
 - If ```MONGODB_CONNECTION_URI``` is not provided, then SuperTokens will use an in memory database.
-
-
-## CLI reference
-Please refer to our [documentation](https://supertokens.io/docs/community/cli/overview) for this.
