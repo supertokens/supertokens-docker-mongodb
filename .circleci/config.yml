@@ -34,11 +34,11 @@ jobs:
       - run:
           name: create and push docker image for core version tag
           command: |
-            docker buildx create --name tmp --use
+            docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+            docker buildx create --name multiarch --driver docker-container --use
             docker buildx inspect --bootstrap
             CORE_VERSION=$(cat Dockerfile | grep "ARG CORE_VERSION=" | cut -d'=' -f2 | cut -d'.' -f1,2)
             docker buildx build --platform $BUILDX_PLATFORMS -t supertokens/supertokens-mongodb:${CORE_VERSION} -o type=image,push=true .
-            docker rm buildx_buildkit_tmp
       - run:
           name: check if is latest core and plugin
           command: |
@@ -59,7 +59,6 @@ jobs:
               # git fetch --prune --prune-tags
               # git tag latest
               # git push origin --tags
-              docker buildx inspect --bootstrap
               docker buildx build --platform $BUILDX_PLATFORMS -t supertokens/supertokens-mongodb:latest -o type=image,push=true .
               token=`curl --location --request POST 'https://hub.docker.com/v2/users/login/' --header 'Content-Type: application/json' --data-raw '{"username": "$DOCKER_USER", "password": "$DOCKER_PASSWORD"}' | jq .token | tr -d '"'`
               TOKEN=$token node updateReadme.js
