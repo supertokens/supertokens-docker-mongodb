@@ -47,8 +47,8 @@ sleep 26s
 # setting network options for testing
 OS=`uname`
 
-NETWORK_OPTIONS="-p 3567:3567 -e MONGODB_CONNECTION_URI=mongodb://root:root@$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1):27017"
-printf "\nmongodb_connection_uri: \"mongodb://root:root@$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1):27017\"\n" >> $PWD/config.yaml
+NETWORK_OPTIONS="-p 3567:3567 -e MONGODB_CONNECTION_URI=mongodb://root:root@$(ip a | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1):27017"
+printf "\nmongodb_connection_uri: \"mongodb://root:root@$(ip a | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1):27017\"\n" >> $PWD/config.yaml
 
 #---------------------------------------------------
 # start with no options
