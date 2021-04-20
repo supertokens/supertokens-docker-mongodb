@@ -32,7 +32,7 @@ jobs:
           name: create and push docker image for core version tag
           command: |
             docker buildx create --name tmp --use
-            ocker buildx inspect --bootstrap
+            docker buildx inspect --bootstrap
             CORE_VERSION=$(cat Dockerfile | grep "ARG CORE_VERSION=" | cut -d'=' -f2 | cut -d'.' -f1,2)
             docker buildx build --platform $BUILDX_PLATFORMS -t supertokens/supertokens-mongodb:${CORE_VERSION} -o type=image,push=true .
             docker rm buildx_buildkit_tmp
