@@ -152,6 +152,14 @@ then
         echo "mongodb_database_name: $MONGODB_DATABASE_NAME" >> $CONFIG_FILE
     fi
 
+    # check if mongodb collection name prefix is passed
+    if [ ! -z $MONGODB_COLLECTION_NAMES_PREFIX ]
+    then
+        echo "mongodb_collection_names_prefix: $MONGODB_COLLECTION_NAMES_PREFIX" >> $CONFIG_FILE
+    fi
+
+    # THE CONFIGS BELOW ARE DEPRECATED----------------
+
     # check if mongodb key value table name is passed
     if [ ! -z $MONGODB_KEY_VALUE_COLLECTION_NAME ]
     then
