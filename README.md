@@ -32,9 +32,9 @@ Available environment variables
   
 
 ```bash
-$ docker run \
+docker run \
 	-p 3567:3567 \
-	-e MONGODB_CONNECTION_URI=mongodb://root:root@192.168.1.2:27017 \
+	-e MONGODB_CONNECTION_URI="mongodb://root:root@192.168.1.2:27017" \
 	-d supertokens/supertokens-mongodb
 ```
 
@@ -48,7 +48,7 @@ $ docker run \
 - The path for the `config.yaml` file in the container is `/usr/lib/supertokens/config.yaml`
 
 ```bash
-$ docker run \
+docker run \
 	-p 3567:3567 \
 	-v /path/to/config.yaml:/usr/lib/supertokens/config.yaml \
 	-d supertokens/supertokens-mongodb
@@ -61,12 +61,12 @@ $ docker run \
 	- Mounting the shared volume for the logging directory.
 
 ```bash
-$ docker run \
+docker run \
 	-p 3567:3567 \
 	-v /path/to/logsFolder:/home/logsFolder \
 	-e INFO_LOG_PATH=/home/logsFolder/info.log \
 	-e ERROR_LOG_PATH=/home/logsFolder/error.log \
-	-e MONGODB_CONNECTION_URI=mongodb://root:root@localhost:27017 \
+	-e MONGODB_CONNECTION_URI="mongodb://root:root@localhost:27017" \
 	-d supertokens/supertokens-mongodb
 ```
 
