@@ -2,7 +2,7 @@
 ```bash
 # This will start with an in memory database.
 
-$ docker run -p 3567:3567 -d supertokens/supertokens-mongodb
+$ docker run -p 3567:3567 -d registry.supertokens.io/supertokens/supertokens-mongodb
 ```
 
 ## Configuration
@@ -35,7 +35,7 @@ Available environment variables
 docker run \
 	-p 3567:3567 \
 	-e MONGODB_CONNECTION_URI="mongodb://root:root@192.168.1.2:27017" \
-	-d supertokens/supertokens-mongodb
+	-d registry.supertokens.io/supertokens/supertokens-mongodb
 ```
 
 #### Using custom config file
@@ -51,7 +51,7 @@ docker run \
 docker run \
 	-p 3567:3567 \
 	-v /path/to/config.yaml:/usr/lib/supertokens/config.yaml \
-	-d supertokens/supertokens-mongodb
+	-d registry.supertokens.io/supertokens/supertokens-mongodb
 ```
 
 ## Logging
@@ -67,7 +67,7 @@ docker run \
 	-e INFO_LOG_PATH=/home/logsFolder/info.log \
 	-e ERROR_LOG_PATH=/home/logsFolder/error.log \
 	-e MONGODB_CONNECTION_URI="mongodb://root:root@localhost:27017" \
-	-d supertokens/supertokens-mongodb
+	-d registry.supertokens.io/supertokens/supertokens-mongodb
 ```
 
 ## Database setup
