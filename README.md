@@ -25,6 +25,7 @@ Available environment variables
 	- ERROR\_LOG\_PATH
     - MAX\_SERVER\_POOL\_SIZE
 	- DISABLE\_TELEMETRY
+	- BASE\_PATH
 - **MongoDB:**	
 	- MONGODB\_CONNECTION\_URI
 	- MONGODB\_DATABASE\_NAME

@@ -92,6 +92,11 @@ then
         echo "refresh_token_validity: $REFRESH_TOKEN_VALIDITY" >> $CONFIG_FILE
     fi
 
+    if [ ! -z $BASE_PATH ]
+    then
+        echo "base_path: $BASE_PATH" >> $CONFIG_FILE
+    fi
+
     # check if info log path is not passed
     if [ ! -z $INFO_LOG_PATH ]
     then
