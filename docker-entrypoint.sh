@@ -97,6 +97,11 @@ then
         echo "base_path: $BASE_PATH" >> $CONFIG_FILE
     fi
 
+    if [ ! -z $LOG_LEVEL ]
+    then
+        echo "log_level: $LOG_LEVEL" >> $LOG_LEVEL
+    fi
+
     # check if info log path is not passed
     if [ ! -z $INFO_LOG_PATH ]
     then
