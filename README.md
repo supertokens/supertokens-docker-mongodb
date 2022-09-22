@@ -27,6 +27,8 @@ Available environment variables
 	- DISABLE\_TELEMETRY
 	- BASE\_PATH
 	- LOG\_LEVEL
+	- IP\_ALLOW\_REGEX
+	- IP\_DENY\_REGEX
 - **MongoDB:**	
 	- MONGODB\_CONNECTION\_URI
 	- MONGODB\_DATABASE\_NAME
