@@ -40,20 +40,11 @@ test_session_post () {
 }
 
 no_of_containers_running_at_start=`no_of_running_containers`
-echo "initial"
-docker ps -q | wc -l
 
 # start mongodb server
-docker run -e DISABLE_TELEMETRY=true --rm -d -p 27017:27017 --name mongodb -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=root mongo
-
-echo "after mongodb - before wait"
-docker ps -q | wc -l
+docker run -e DISABLE_TELEMETRY=true --rm -p 27017:27017 --name mongodb -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=root mongo
 
 sleep 26s
-
-echo "after mongodb - after wait"
-docker ps -q | wc -l
-docker ps
 
 # setting network options for testing
 OS=`uname`
@@ -66,9 +57,6 @@ printf "\nmongodb_connection_uri: \"mongodb://root:root@$MONGO_IP:27017\"\n" >> 
 docker run -e DISABLE_TELEMETRY=true --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db 
 
 sleep 10s
-
-echo "before test"
-docker ps -q | wc -l
 
 test_equal `no_of_running_containers` $((no_of_containers_running_at_start+1)) "start with no options"
 
