@@ -54,7 +54,7 @@ printf "\nmongodb_connection_uri: \"mongodb://root:root@$MONGO_IP:27017\"\n" >> 
 
 #---------------------------------------------------
 # start with no options
-docker run -e DISABLE_TELEMETRY=true --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db 
+docker run -e DISABLE_TELEMETRY=true --rm --name supertokens supertokens-mongodb:circleci --no-in-mem-db 
 
 sleep 10s
 
