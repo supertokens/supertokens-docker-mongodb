@@ -42,7 +42,7 @@ test_session_post () {
 no_of_containers_running_at_start=`no_of_running_containers`
 
 # start mongodb server
-docker run -e DISABLE_TELEMETRY=true --rm -p 27017:27017 --name mongodb -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=root mongo
+docker run -e DISABLE_TELEMETRY=true -d --rm -p 27017:27017 --name mongodb -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=root mongo@sha256:c015870b10451c414911aff5648495bd3fcc9fe0cec340f46bb852706697a72f
 
 sleep 26s
 
