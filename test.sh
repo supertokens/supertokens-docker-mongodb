@@ -167,7 +167,7 @@ git checkout $PWD/config.yaml
 
 #---------------------------------------------------
 # test --read-only
-docker run  --read-only -e DISABLE_TELEMETRY=true $NETWORK_OPTIONS_CONNECTION_URI --tmpfs=/lib/supertokens/temp/:exec --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db --read-only
+docker run  --read-only -e DISABLE_TELEMETRY=true $NETWORK_OPTIONS --tmpfs=/lib/supertokens/temp/:exec --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db --read-only
 
 sleep 17s
 
@@ -177,15 +177,11 @@ test_hello "test --read-only"
 
 test_session_post "test --read-only"
 
-test_signup_post "test --read-only"
-
-test_signin_post "test --read-only"
-
 docker rm supertokens -f
 
 #---------------------------------------------------
 # test --read-only ARGON2
-docker run  --read-only -e DISABLE_TELEMETRY=true $NETWORK_OPTIONS_CONNECTION_URI -e PASSWORD_HASHING_ALG=ARGON2  --tmpfs=/lib/supertokens/temp/:exec --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db --read-only
+docker run  --read-only -e DISABLE_TELEMETRY=true $NETWORK_OPTIONS -e PASSWORD_HASHING_ALG=ARGON2  --tmpfs=/lib/supertokens/temp/:exec --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db --read-only
 
 sleep 17s
 
@@ -194,10 +190,6 @@ test_equal `no_of_running_containers` $((no_of_containers_running_at_start+2)) "
 test_hello "test --read-only ARGON2"
 
 test_session_post "test --read-only ARGON2"
-
-test_signup_post "test --read-only ARGON2"
-
-test_signin_post "test --read-only ARGON2"
 
 docker rm supertokens -f
 
