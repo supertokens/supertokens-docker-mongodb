@@ -144,7 +144,11 @@ docker rm supertokens -f
 
 # ---------------------------------------------------
 # test info path
-docker run -e DISABLE_TELEMETRY=true $NETWORK_OPTIONS -v $PWD:/home/supertokens -e INFO_LOG_PATH=/home/supertokens/info.log -e ERROR_LOG_PATH=/home/supertokens/error.log --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
+
+mkdir $PWD/sthome
+chmod a+rw sthome
+
+docker run -e DISABLE_TELEMETRY=true $NETWORK_OPTIONS -v $PWD/sthome/:/home/supertokens -e INFO_LOG_PATH=/home/supertokens/info.log -e ERROR_LOG_PATH=/home/supertokens/error.log --rm -d --name supertokens supertokens-mongodb:circleci --no-in-mem-db
 
 sleep 17s
 
@@ -154,15 +158,13 @@ test_hello "test info path"
 
 test_session_post "test info path"
 
-if [[ ! -f $PWD/info.log || ! -f $PWD/error.log ]]
+if [[ ! -f $PWD/sthome/info.log || ! -f $PWD/sthome/error.log ]]
 then
     exit 1
 fi
 
 docker rm supertokens -f
 
-rm -rf $PWD/info.log
-rm -rf $PWD/error.log
 git checkout $PWD/config.yaml
 
 #---------------------------------------------------
