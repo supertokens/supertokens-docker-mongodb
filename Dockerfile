@@ -1,7 +1,7 @@
 FROM ubuntu:bionic-20200219 as tmp
 ARG PLUGIN_NAME=mongodb
 ARG PLAN_TYPE=FREE
-ARG CORE_VERSION=9.2.3
+ARG CORE_VERSION=9.2.2
 ARG PLUGIN_VERSION=1.28.0
 RUN apt-get update && apt-get install -y curl zip
 RUN OS= && dpkgArch="$(dpkg --print-architecture)" && \
@@ -36,6 +36,5 @@ COPY docker-entrypoint.sh /usr/local/bin/
 RUN echo "$(md5sum /usr/lib/supertokens/config.yaml | awk '{ print $1 }')" >> /CONFIG_HASH
 RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 EXPOSE 3567
-USER "supertokens"
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["supertokens", "start"]
